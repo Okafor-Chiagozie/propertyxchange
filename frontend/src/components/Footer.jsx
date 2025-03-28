@@ -8,7 +8,7 @@ import logo from "../assets/logo.png"
 const Footer = () => {
   return (
     <footer>
-      <div className='max-padd-container flex items-start justify-between flex-col lg:flex-row gap-8 py-6 mb-7 bg-gradient-to-r from-primary via-white to-white'>
+      <div className='max-padd-container flex items-start justify-between flex-col lg:flex-row gap-8 py-6 mb-7 bg-gradient-to-r from-blue-50 via-white to-white'>
         <div>
           <h4 className='h4'>We are always here to help</h4>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae.</p>
@@ -76,7 +76,7 @@ const Footer = () => {
         </div>
       </div>
       {/* copyrights */}
-      <p className='max-padd-container medium-14 py-2 px-8 rounded flexBetween mt-6 bg-gradient-to-r from-primary via-white to-white'><span>2025 ZenHomes</span><span>All rights reserved</span></p>
+      <p className='max-padd-container medium-14 py-2 px-8 rounded flexBetween mt-6 bg-gradient-to-r from-blue-50 via-white to-white'><span>2025 ZenHomes</span><span>All rights reserved</span></p>
 
     </footer>
   )

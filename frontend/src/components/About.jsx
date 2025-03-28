@@ -1,6 +1,6 @@
 import React from 'react'
-import about1 from "../assets/about1.png"
-import about2 from "../assets/about2.png"
+import about1 from "../assets/house5.jpg"
+import about2 from "../assets/house1.jpg"
 import { FaScreenpal, FaUpDown } from 'react-icons/fa6'
 import { FaEnvelope, FaInbox, FaList, FaMap, FaMapMarkedAlt, FaUser } from 'react-icons/fa'
 
@@ -21,23 +21,23 @@ const About = () => {
           <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione itaque similique reprehenderit harum, sunt enim cupiditate accusantium minima dolorum.</p>
           <div className='flex flex-col gap-6 mt-5'>
             <div className='flex gap-3'>
-              <FaScreenpal className='text-secondary' />
+              <FaScreenpal className='text-orange-500' />
               <p>Virtual property tours and viewings</p>
             </div>
             <div className='flex gap-3'>
-              <FaUpDown className='text-secondary' />
+              <FaUpDown className='text-orange-500' />
               <p>Real-time market price updates</p>
             </div>
             <div className='flex gap-3'>
-              <FaMap className='text-secondary' />
+              <FaMap className='text-orange-500' />
               <p>Interactive floor plans and maps</p>
             </div>
             <div className='flex gap-3'>
-              <FaMapMarkedAlt className='text-secondary' />
+              <FaMapMarkedAlt className='text-orange-500' />
               <p>Access to off-market properties</p>
             </div>
             <div className='flex gap-3'>
-              <FaEnvelope className='text-secondary' />
+              <FaEnvelope className='text-orange-500' />
               <p>Direct messaging with agents and owners</p>
             </div>
           </div>
@@ -52,23 +52,23 @@ const About = () => {
           <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione itaque similique reprehenderit harum, sunt enim cupiditate accusantium minima dolorum.</p>
           <div className='flex flex-col gap-6 mt-5'>
             <div className='flex gap-3'>
-              <FaList className='text-secondary' />
+              <FaList className='text-orange-500' />
               <p>In-app scheduling for property viewings</p>
             </div>
             <div className='flex gap-3'>
-              <FaUpDown className='text-secondary' />
+              <FaUpDown className='text-orange-500' />
               <p>Real-time market price updates</p>
             </div>
             <div className='flex gap-3'>
-              <FaInbox className='text-secondary' />
+              <FaInbox className='text-orange-500' />
               <p>User-friendly interface for smooth navigation</p>
             </div>
             <div className='flex gap-3'>
-              <FaUser className='text-secondary' />
+              <FaUser className='text-orange-500' />
               <p>Detailed agent and realtor profiles</p>
             </div>
             <div className='flex gap-3'>
-              <FaMapMarkedAlt className='text-secondary' />
+              <FaMapMarkedAlt className='text-orange-500' />
               <p>Access to off-market properties</p>
             </div>
           </div>

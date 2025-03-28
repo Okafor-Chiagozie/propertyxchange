@@ -85,7 +85,7 @@ const Property = () => {
           </div>
           <div className='flexBetween py-1'>
             <h5 className='bold-16 my-1 text-secondary'>{data?.city}</h5>
-            <div className='flex items-baseline gap-2 text-secondary'>
+            <div className='flex items-baseline gap-2 text-orange-500'>
               <h4 className='bold-18 relative bottom-0.5 text-black'>5.0</h4>
               <FaStar />
               <FaStar />

@@ -64,7 +64,7 @@
 
 @layer utilities {
   .active-link {
-    @apply relative after:w-2/3 after:h-[2px] after:rounded-full after:bg-black after:absolute after:-bottom-2 after:left-0;
+    @apply relative after:w-full after:h-[2px] after:rounded-full after:bg-white after:absolute after:-bottom-2 after:left-0;
   }
 
   .btn-white {

@@ -30,11 +30,11 @@ const Listing = () => {
     }
     return (
         <main className='my-24'>
-            <div className='max-padd-container py-10 bg-gradient-to-r from-primary via-white to-white'>
+            <div className='max-padd-container py-10 bg-gradient-to-r from-blue-50 via-white to-white'>
                 <div>
                     <Searchbar filter={filter} setFilter={setFilter} />
                     {/* CONTAINER */}
-                    <div className='grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mt-10'>
+                    <div className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10'>
                         {data.filter((property) =>
                             property.title.toLowerCase().includes(filter.toLowerCase()) ||
                             property.city.toLowerCase().includes(filter.toLowerCase()) ||

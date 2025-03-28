@@ -32,7 +32,7 @@ const Bookings = () => {
   }
   return (
     <main className='my-24'>
-      <div className='max-padd-container py-10 bg-gradient-to-r from-primary via-white to-white'>
+      <div className='max-padd-container py-10 bg-gradient-to-r from-blue-50 via-white to-white'>
         <div>
           <Searchbar filter={filter} setFilter={setFilter} />
           {/* CONTAINER */}

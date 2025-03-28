@@ -15,16 +15,16 @@ const Navbar = ({ containerStyles }) => {
 
     return (
         <nav className={`${containerStyles}`}>
-            <NavLink to={'/'} className={({ isActive }) => isActive ? "active-link py-1" : "py-1"}>
+            <NavLink to={'/'} className={({ isActive }) => isActive ? "active-link font-semibold" : "font-semibold"}>
                 Home
             </NavLink>
-            <NavLink to={'/listing'} className={({ isActive }) => isActive ? "active-link py-1" : "py-1"}>
+            <NavLink to={'/listing'} className={({ isActive }) => isActive ? "active-link font-semibold" : "font-semibold"}>
                 Listing
             </NavLink>
-            <NavLink to={'mailto:info@zenhomes.com'} className={({ isActive }) => isActive ? "active-link py-1" : "py-1"}>
+            <NavLink to={'mailto:info@zenhomes.com'} className={({ isActive }) => isActive ? "active-link font-semibold" : "font-semibold"}>
                 Contact
             </NavLink>
-            <div onClick={handleAddPropertyClick} className={"py-1 cursor-pointer"}>
+            <div onClick={handleAddPropertyClick} className={"cursor-pointer font-semibold"}>
                 Add Property
             </div>
             <AddPropertyModal opened={modalOpened} setOpened={setModalOpened} />
