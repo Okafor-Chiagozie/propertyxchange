@@ -33,6 +33,7 @@ app.use("/api/residency", residencyRoute);
 
 // Test API Route
 app.get("/api", async (req, res) => {
+  console.log("API endpoint hit");
   try {
     const residencies = await prisma.residency.findMany({
       orderBy: {
