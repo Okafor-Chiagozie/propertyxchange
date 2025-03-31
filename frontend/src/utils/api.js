@@ -54,10 +54,10 @@ export const createUser = async (email, token) => {
           }
       );
 
-      console.log("✅ Server response:", response.data); // Log success response
+      console.log("Server response:", response.data); // Log success response
       return response.data;
   } catch (error) {
-      console.error("❌ Error creating user:", error.response?.data || error.message);
+      console.error("Error creating user:", error.response?.data || error.message);
       toast.error("Something went wrong, Please try again.");
       throw error;
   }
