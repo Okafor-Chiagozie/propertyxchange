@@ -1,50 +1,61 @@
-import React, { useContext, useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
-import Header from './Header'
-import Footer from './Footer'
-import { useAuth0 } from '@auth0/auth0-react'
-import UserDetailContext from '../context/UserDetailContext'
-import { useMutation } from 'react-query'
-import { createUser } from '../utils/api'
-import useFavourites from '../hooks/useFavourites'
-import useBookings from '../hooks/useBookings'
+import React, { useContext, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import Header from './Header';
+import Footer from './Footer';
+import { useAuth0 } from '@auth0/auth0-react';
+import UserDetailContext from '../context/UserDetailContext';
+import { useMutation } from 'react-query';
+import { createUser } from '../utils/api';
+import useFavourites from '../hooks/useFavourites';
+import useBookings from '../hooks/useBookings';
 
 const Layout = () => {
+  useFavourites();
+  useBookings();
 
-    useFavourites()
-    useBookings()
+  const { isAuthenticated, user, getAccessTokenSilently } = useAuth0(); // Use getAccessTokenSilently instead
+  const { setUserDetails } = useContext(UserDetailContext);
+  const { mutate } = useMutation(createUser);
 
-    const { isAuthenticated, user, getAccessTokenWithPopup } = useAuth0()
-    const { setUserDetails } = useContext(UserDetailContext)
-    const { mutate } = useMutation({
-        mutationKey: [user?.email],
-        mutationFn: (token) => createUser(user?.email, token)
-    })
+  useEffect(() => {
+    if(!window) {
+      return;
+    }
 
-    useEffect(() => {
-        const getTokenAndRegister = async () => {
-            const res = await getAccessTokenWithPopup({
-                authorizationParams: {
-                    audience: "http://localhost:3000",
-                    scope: "openid profile email"
-                }
-            })
-            localStorage.setItem("access_token", res)
-            setUserDetails((prev) => ({ ...prev, token: res }))
-            mutate(res)
+    const getTokenAndRegister = async () => {
+      try {
+        let token = localStorage.getItem('propertyxchange_access_token');
+        console.log("Before fetch: ", token);
+        if (!token) {
+          token = await getAccessTokenSilently();
+
+          console.log("After fetch: ", token);
+          localStorage.setItem('propertyxchange_access_token', token);
         }
-        isAuthenticated && getTokenAndRegister()
-    }, [isAuthenticated])
 
-    return (
-        <>
-            <div>
-                <Header />
-                <Outlet />
-            </div>
-            <Footer />
-        </>
-    )
-}
+        if (user?.email) {
+          setUserDetails((prev) => ({ ...prev, token }));
+          mutate(user.email, token);
+        }
+      } catch (error) {
+        console.error('Error getting token:', error);
+      }
+    };
 
-export default Layout
+    if (isAuthenticated && user?.email) {
+      getTokenAndRegister();
+    }
+  }, [isAuthenticated, user?.email, getAccessTokenSilently, setUserDetails, mutate]);
+
+  return (
+    <>
+      <div>
+        <Header />
+        <Outlet />
+      </div>
+      <Footer />
+    </>
+  );
+};
+
+export default Layout;

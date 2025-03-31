@@ -37,7 +37,7 @@ const Favourites = () => {
           <Searchbar filter={filter} setFilter={setFilter} />
           {/* CONTAINER */}
           <div className='grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mt-10'>
-            {data.filter((property) => favourites.includes(property.id)).filter((property) =>
+            {data.filter((property) => favourites?.includes(property.id)).filter((property) =>
               property.title.toLowerCase().includes(filter.toLowerCase()) ||
               property.city.toLowerCase().includes(filter.toLowerCase()) ||
               property.country.toLowerCase().includes(filter.toLowerCase())

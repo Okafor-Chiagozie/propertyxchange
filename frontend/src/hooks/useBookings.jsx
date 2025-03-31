@@ -1,30 +1,28 @@
-import React, { useContext, useEffect, useRef } from 'react'
-import { useQuery } from 'react-query'
-import { useAuth0 } from '@auth0/auth0-react'
-import UserDetailContext from '../context/UserDetailContext'
-import { getAllBookings } from '../utils/api'
+import React, { useContext, useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { useAuth0 } from '@auth0/auth0-react';
+import UserDetailContext from '../context/UserDetailContext';
+import { getAllBookings } from '../utils/api';
 
 const useBookings = () => {
-    
-    const { userDetails, setUserDetails } = useContext(UserDetailContext)
-    const queryRef = useRef()
-    const {user} = useAuth0()
+    const { userDetails, setUserDetails } = useContext(UserDetailContext);
+    const { user } = useAuth0();
 
     const { data, isLoading, isError, refetch } = useQuery({
-        queryKey: "allBookings",
-        queryFn: ()=> getAllBookings(user?.email, userDetails?.token),
-        onSuccess: (data)=> setUserDetails((prev)=> ({...prev, bookings: data})),
-        enabled: user!==undefined,
-        staleTime: 30000
-    })
+        queryKey: ["allBookings", user?.email, userDetails?.token],
+        queryFn: () => getAllBookings(user?.email, userDetails?.token),
+        onSuccess: (data) => setUserDetails((prev) => ({ ...prev, bookings: data })),
+        enabled: !!user?.email && !!userDetails?.token,
+        staleTime: 30000,
+    });
 
-    queryRef.current = refetch;
+    useEffect(() => {
+        if (userDetails?.token) {
+            refetch();
+        }
+    }, [userDetails?.token, refetch]);
 
-    useEffect(()=> {
+    return { data, isError, isLoading, refetch };
+};
 
-        queryRef.current && queryRef.current()
-    }, [userDetails?.token])
-  return { data, isError, isLoading, refetch }
-}
-
-export default useBookings
+export default useBookings;

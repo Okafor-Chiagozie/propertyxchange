@@ -10,13 +10,14 @@ import "@mantine/dates/styles.css"
 
 createRoot(document.getElementById('root')).render(
     <Auth0Provider
-        domain=''
-        clientId=''
+        domain='dev-7f1xt3q761kj5klp.us.auth0.com'
+        clientId='m8hmZYHd0apVs8S5g86MC6XiElnuvd17'
         authorizationParams={{
-            redirect_uri: "http://localhost:5173"
+            redirect_uri: window.location.origin,
+            response_type: "token"
         }}
         audience="http://localhost:3000"
-        scope="openid profile email"
+        
     >
         <MantineProvider>
             <App />

@@ -39,19 +39,28 @@ export const getProperty = async (id) => {
 }
 
 export const createUser = async (email, token) => {
-    try {
-        await api.post(`/user/register`, { email },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            }
-        )
-    } catch (error) {
-        toast.error("Something went wrong, Please Try again")
-        throw error
-    }
-}
+  try {
+      console.log("📩 Sending email:", email); // Debug log
+
+      const response = await api.post(
+          `/user/register`,
+          { email }, // Sending data
+          {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+                  'Content-Type': 'application/json'
+              },
+          }
+      );
+
+      console.log("✅ Server response:", response.data); // Log success response
+      return response.data;
+  } catch (error) {
+      console.error("❌ Error creating user:", error.response?.data || error.message);
+      toast.error("Something went wrong, Please try again.");
+      throw error;
+  }
+};
 
 export const bookVisit = async (date, propertyId, email, token) => {
     try {
@@ -144,7 +153,7 @@ export const getAllBookings = async (email, token) => {
 export const createResidency = async (data, token, userEmail) => {
     // Ensure userEmail is included in the data object
     const requestData = { ...data, userEmail };
-    console.log(requestData) // Lod the updated data object
+    console.log(requestData) // Load the updated data object
 
     try {
         const res = await api.post(`/residency/create`,

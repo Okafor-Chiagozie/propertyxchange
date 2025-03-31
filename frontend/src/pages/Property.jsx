@@ -34,7 +34,7 @@ const Property = () => {
         bookings: prev.bookings.filter((booking) => booking?.id !== id),
       }))
 
-      toast.success("Boking cancelled", { position: 'bottom-right' })
+      toast.success("Booking cancelled", { position: 'bottom-right' })
     }
   })
 

@@ -4,19 +4,22 @@ import { prisma } from "../config/prismaConfig.js"
 
 // CONTROLLER FUNCTION FOR CREATING A USER
 export const createUser = asyncHandler(async (req, res) => {
-    console.log("creating a user");
+  let { email } = req.body;
+  
+  if (typeof email !== 'string') {
+      return res.status(400).json({ message: "Invalid email format" });
+  }
 
-    let { email } = req.body
-    const userExists = await prisma.user.findUnique({ where: { email } })
-    if (!userExists) {
-        const user = await prisma.user.create({ data: req.body })
-        res.send({
-            message: "User registered successfully",
-            user: user,
-        })
-    }
-    else res.status(201).send({ message: "User already registerd" })
-})
+  const userExists = await prisma.user.findUnique({ where: { email } });
+  if (!userExists) {
+      const user = await prisma.user.create({ data: { email } });
+      return res.json({
+          message: "User registered successfully",
+          user: user,
+      });
+  }
+  res.status(201).json({ message: "User already registered" });
+});
 
 
 // CONTROLLER FUNCTION FOR BOOK A RESIDENCY VISIT
@@ -103,6 +106,8 @@ export const toFav = asyncHandler(async (req, res) => {
         const user = await prisma.user.findUnique({
             where: { email }
         })
+        console.log(user);
+
         if (user.favResidenciesID.includes(rid)) {
             const updateUser = await prisma.user.update({
                 where: { email },
