@@ -10,13 +10,22 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// CORS Configuration
+const corsOptions = {
+  origin: "https://propertyxchange.vercel.app",
+  credentials: true, // Allows cookies & authentication headers
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
+};
+
+// Apply CORS
+app.use(cors(corsOptions));
+
+// Handle preflight requests for all routes
+app.options("*", cors(corsOptions));
+
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ 
-  origin: "*",
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-}));
 
 app.use("/api/user", userRoute);
 app.use("/api/residency", residencyRoute);
