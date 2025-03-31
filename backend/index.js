@@ -4,7 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { userRoute } from "./routes/userRoute.js";
 import { residencyRoute } from "./routes/residencyRoute.js";
-import { prisma } from "./config/prismaConfig.js";
+import prisma from './config/prismaConfig.js';
 
 dotenv.config();
 
