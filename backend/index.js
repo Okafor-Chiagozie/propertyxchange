@@ -12,28 +12,33 @@ const PORT = process.env.PORT || 3000;
 
 // CORS Configuration
 const corsOptions = {
-  origin: "https://propertyxchange.vercel.app",
-  credentials: true,
+  origin: "https://propertyxchange.vercel.app", // Frontend URL
+  credentials: true, // Allows sending cookies/auth headers
   methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
+  allowedHeaders: ["Content-Type", "Authorization"]
 };
 
-// Apply CORS **before any routes or middleware**
+// Apply CORS Middleware
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // Handle preflight requests
+app.options("*", cors(corsOptions)); // Handles preflight requests
 
+// Middleware
 app.use(express.json());
 app.use(cookieParser());
 
+// API Routes
 app.use("/api/user", userRoute);
 app.use("/api/residency", residencyRoute);
 
-// Basic test route
+// Test API Route
+app.get("/api", (req, res) => {
+  res.json({ message: "API is working!" });
+});
+
+// Root Route (For Debugging)
 app.get("/", (req, res) => {
   res.json({ message: "CORS is working" });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Export Express App for Vercel
+export default app;
