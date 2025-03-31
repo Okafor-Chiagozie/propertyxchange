@@ -16,7 +16,8 @@ createRoot(document.getElementById('root')).render(
             redirect_uri: window.location.origin,
             response_type: "token"
         }}
-        audience="http://localhost:3000"
+        // audience="http://localhost:3000"
+        audience="https://propertyxchange-api-ten.vercel.app"
         
     >
         <MantineProvider>
