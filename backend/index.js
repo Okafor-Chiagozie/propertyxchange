@@ -34,13 +34,14 @@ app.use("/api/residency", residencyRoute);
 // Test API Route
 app.get("/api", async (req, res) => {
   console.log("API endpoint hit");
+
   try {
     const residencies = await prisma.residency.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
+      orderBy: { createdAt: "desc" },
+      take: 20, // Fetch only 20 records to optimize performance
     });
-    res.json(residencies); // Use res.json() for consistency
+
+    res.json(residencies);
   } catch (error) {
     console.error("Error fetching residencies:", error);
     res.status(500).json({ error: "Internal Server Error" });
