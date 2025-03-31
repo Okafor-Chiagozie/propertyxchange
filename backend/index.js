@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { userRoute } from "./routes/userRoute.js";
 import { residencyRoute } from "./routes/residencyRoute.js";
+import { prisma } from "./config/prismaConfig.js";
 
 dotenv.config();
 
@@ -31,8 +32,18 @@ app.use("/api/user", userRoute);
 app.use("/api/residency", residencyRoute);
 
 // Test API Route
-app.get("/api", (req, res) => {
-  res.json({ message: "API is working!" });
+app.get("/api", async (req, res) => {
+  try {
+    const residencies = await prisma.residency.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    res.json(residencies); // Use res.json() for consistency
+  } catch (error) {
+    console.error("Error fetching residencies:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 // Root Route (For Debugging)

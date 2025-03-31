@@ -36,7 +36,6 @@ export const createResidency = asyncHandler(async (req, res) => {
 
 // CONTROLLER FUNCTION FOR GETT ALL RESIDENCIES
 export const getAllResidencies = asyncHandler(async (req, res) => {
-  console.log("Inside");
     const residencies = await prisma.residency.findMany({
         orderBy: {
             createdAt: "desc"
