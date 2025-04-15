@@ -37,7 +37,7 @@ const Listing = () => {
                     <div className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10'>
                         {data.filter((property) =>
                             property.title.toLowerCase().includes(filter.toLowerCase()) ||
-                            property.city.toLowerCase().includes(filter.toLowerCase()) ||
+                            property.state.toLowerCase().includes(filter.toLowerCase()) ||
                             property.country.toLowerCase().includes(filter.toLowerCase())
                         ).map((property) => (
                             <Item key={property.title} property={property} />

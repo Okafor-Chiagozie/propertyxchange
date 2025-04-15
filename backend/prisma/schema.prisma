@@ -19,15 +19,31 @@ model User {
 }
 
 model Residency {
+
     id          String   @id @default(auto()) @map("_id") @db.ObjectId
     title       String
-    description String
+    description String?
     price       Int
     address     String
-    city        String
-    country     String
+    state       String
+    lga         String
+    country     String?
     image       String
     facilities  Json
+    purpose     String
+    type        String?
+    dimensions  Int?
+    furnished   Boolean?
+    parking     Boolean?
+    serviced    Boolean?
+    newlyBuilt  Boolean?
+    extraFeatures     String?
+    discountPercentage Int?
+    discountEndDate     String?
+    installment         String?
+    initialPayment      Int?
+    installmentPayment  Int?
+    installmentFrequency  String?
     userEmail   String
     owner       User     @relation("Owner", fields: [userEmail], references: [email])
     createdAt   DateTime @default(now())

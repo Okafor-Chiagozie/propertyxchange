@@ -5,29 +5,45 @@ import { useAuth0 } from "@auth0/auth0-react"
 import UploadImage from './UploadImage'
 import BasicDetails from './BasicDetails'
 import Facilities from './Facilities'
+import PaymentOption from './PaymentOption'
 
 const AddPropertyModal = ({ opened, setOpened }) => {
 
     const [active, setActive] = useState(0)
     const { user } = useAuth0()
     const [propertyDetails, setPropertyDetails] = useState({
-        title: "",
-        description: "",
-        price: 0,
-        country: "",
-        city: "",
-        address: "",
-        image: null,
-        facilities: {
-            bedrooms: 0,
-            bathrooms: 0,
-            parkings: 0
-        },
-        userEmail: user?.email
+      country: "",
+      state: "",
+      address: "",
+      lga: "",
+      image: null,
+      title: "",
+      description: "",
+      purpose: "",
+      type: "",
+      dimensions: 0,
+      furnished: false,
+      parking: false,
+      serviced: false,
+      newlyBuilt: false,
+      extraFeatures: "",
+      facilities: {
+        bedrooms: 0,
+        bathrooms: 0,
+        toilets: 0
+      },
+      price: 0,
+      discountPercentage: 0,
+      discountEndDate: null,
+      installment: "",
+      initialPayment: 0,
+      installmentPayment: 0,
+      installmentFrequency: "",
+      userEmail: user?.email
     })
 
     const nextStep = () => {
-        setActive((current) => (current < 4 ? current + 1 : current))
+        setActive((current) => (current < 5 ? current + 1 : current))
     }
 
     const prevStep = () => {
@@ -61,6 +77,14 @@ const AddPropertyModal = ({ opened, setOpened }) => {
                         </Stepper.Step>
                         <Stepper.Step label="Basics" description="Details">
                             <BasicDetails
+                                prevStep={prevStep}
+                                nextStep={nextStep}
+                                propertyDetails={propertyDetails}
+                                setPropertyDetails={setPropertyDetails}
+                            />
+                        </Stepper.Step>
+                        <Stepper.Step label="Payment Options" description="Payment">
+                            <PaymentOption
                                 prevStep={prevStep}
                                 nextStep={nextStep}
                                 propertyDetails={propertyDetails}

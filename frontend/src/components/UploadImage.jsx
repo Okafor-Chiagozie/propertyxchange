@@ -28,7 +28,7 @@ const UploadImage = ({ prevStep, nextStep, propertyDetails, setPropertyDetails }
     }, [])
 
     return (
-        <div className='mt-12 flexCenter flex-col'>
+        <div className='mt-12 flexCenter flex-col [&>*]:w-[min(100%,800px)]'>
             {!imageURL ? (
                 <div onClick={()=> widgetRef.current?.open()} className='flexCenter flex-col w-3/4 h-[21rem] border-dashed border-2 cursor-pointer'>
                     <MdOutlineCloudUpload size={44} color='grey' />
@@ -43,6 +43,7 @@ const UploadImage = ({ prevStep, nextStep, propertyDetails, setPropertyDetails }
                 <Button onClick={prevStep}>Go Back</Button>
                 <Button onClick={handleNext} disabled={!imageURL}>Next</Button>
             </Group>
+            <br /><br />
         </div>
     )
 }

@@ -4,7 +4,11 @@ import prisma from '../config/prismaConfig.js';
 
 // CONTROLLER FUNCTION FOR CREATING A RESIDENCY
 export const createResidency = asyncHandler(async (req, res) => {
-    const { title, description, price, address, country, city, facilities, image, userEmail } = req.body.data || req.body
+    const { title, description, price, address, country, state, lga, purpose, type, 
+      dimensions, furnished, parking, serviced, newlyBuilt, extraFeatures, facilities, 
+      image, userEmail, discountPercentage, discountEndDate, installment, initialPayment,
+      installmentPayment, installmentFrequency 
+    } = req.body.data || req.body
 
     console.log(req.body.data)
     try {
@@ -15,8 +19,23 @@ export const createResidency = asyncHandler(async (req, res) => {
                 price,
                 address,
                 country,
-                city,
+                state,
+                lga,
+                purpose,
+                type,
                 facilities,
+                dimensions,
+                furnished,
+                parking,
+                serviced,
+                newlyBuilt,
+                extraFeatures,
+                discountPercentage,
+                discountEndDate,
+                installment,
+                initialPayment,
+                installmentPayment,
+                installmentFrequency,
                 image,
                 owner: { connect: { email: userEmail } }
             }

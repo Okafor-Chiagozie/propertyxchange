@@ -9,23 +9,25 @@ const AddLocation = ({ propertyDetails, setPropertyDetails, nextStep }) => {
   const { getAll } = useCountries()
   const form = useForm({
     initialValues: {
-      country: propertyDetails?.country,
-      city: propertyDetails?.city,
-      address: propertyDetails?.address
+      country: "Nigeria",
+      state: propertyDetails?.state,
+      address: propertyDetails?.address,
+      lga: propertyDetails?.lga
     },
     validate: {
       country: (value) => validateString(value),
-      city: (value) => validateString(value),
+      state: (value) => validateString(value),
       address: (value) => validateString(value),
+      lga: (value) => validateString(value),
     }
   })
 
-  const { country, city, address } = form.values
+  const { country, state, address, lga } = form.values
 
   const handleSubmit = () => {
-    const { hasError } = form.validate()
-    if (!hasError) {
-      setPropertyDetails((prev) => ({ ...prev, country, city, address }))
+    const { hasErrors } = form.validate()
+    if (!hasErrors) {
+      setPropertyDetails((prev) => ({ ...prev, country, state, address, lga }))
       nextStep()
     }
   }
@@ -37,11 +39,11 @@ const AddLocation = ({ propertyDetails, setPropertyDetails, nextStep }) => {
         handleSubmit()
       }}
     >
-      <div className='flexCenter'>
+      <div className='flex flex-col md:flex-row'>
         {/* LEFT SIDE */}
-        <div className='flexCenter flex-1'>
+        <div className='flexCenter flex-1 [&>*]:w-[min(100%,500px)]'>
           {/* INPUTS */}
-          <div>
+          <div className='mr-4'>
             <Select
               w={"100%"}
               withAsterisk
@@ -49,30 +51,42 @@ const AddLocation = ({ propertyDetails, setPropertyDetails, nextStep }) => {
               clearable
               searchable
               data={getAll()}
+              placeholder='Select country'
+              disabled
               {...form.getInputProps("country", { type: "input" })}
             />
             <TextInput
               w={"100%"}
               withAsterisk
-              label="City"
-              {...form.getInputProps("city", { type: "input" })}
+              label="State"
+              placeholder='State of property'
+              {...form.getInputProps("state", { type: "input" })}
             />
             <TextInput
               w={"100%"}
               withAsterisk
               label="Address"
+              placeholder='Address of property'
               {...form.getInputProps("address", { type: "input" })}
+            />
+            <TextInput
+              w={"100%"}
+              withAsterisk
+              label="Local Goverment Area"
+              placeholder='(LGA) Local Goverment Area'
+              {...form.getInputProps("lga", { type: "input" })}
             />
           </div>
         </div>
         {/* RIGHT SIDE */}
         <div className='flex-1'>
-          <Map address={address} city={city} country={country} />
+          <Map address={address} state={state} country={country} lga={lga} />
         </div>
       </div>
       <Group justify='center' mt={'xl'}>
         <Button type='submit'>Next Step</Button>
       </Group>
+      <br /><br />
     </form>
   )
 }

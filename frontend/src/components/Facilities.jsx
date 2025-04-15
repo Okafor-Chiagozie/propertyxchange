@@ -18,7 +18,7 @@ const Facilities = ({
   const form = useForm({
     initialValues: {
       bedrooms: propertyDetails.facilities.bedrooms,
-      parkings: propertyDetails.facilities.parkings,
+      toilets: propertyDetails.facilities.toilets,
       bathrooms: propertyDetails.facilities.bathrooms,
     },
     validate: {
@@ -26,20 +26,23 @@ const Facilities = ({
         value < 1 ? "Must have at least one bedroom" : null,
       bathrooms: (value) =>
         value < 1 ? "Must have at least one bathroom" : null,
+      toilets: (value) =>
+        value < 1 ? "Must have at least one toilet" : null,
     },
   });
 
-  const { bedrooms, parkings, bathrooms } = form.values;
+  const { bedrooms, toilets, bathrooms } = form.values;
 
   const handleSubmit = () => {
-    const { hasErrors } = form.validate();
+    const {  errors, hasErrors } = form.validate();
     if (!hasErrors) {
       setPropertyDetails((prev) => ({
         ...prev,
-        facilities: { bedrooms, parkings, bathrooms },
+        facilities: { bedrooms, toilets, bathrooms },
       }));
       mutate();
-    }
+    }else{ console.log(errors) }
+
   };
 
   //   UPLOAD
@@ -54,7 +57,7 @@ const Facilities = ({
       createResidency(
         {
           ...propertyDetails,
-          facilities: { bedrooms, parkings, bathrooms },
+          facilities: { bedrooms, toilets, bathrooms },
         },
         token, user?.email
       ),
@@ -63,19 +66,34 @@ const Facilities = ({
     onSettled: () => {
         toast.success("Added Successfully", { position: "bottom-right" });
         setPropertyDetails({
+          country: "",
+          state: "",
+          address: "",
+          lga: "",
+          image: null,
           title: "",
           description: "",
-          price: 0,
-          country: "",
-          city: "",
-          address: "",
-          image: null,
+          purpose: "",
+          type: "",
+          dimensions: 0,
+          furnished: false,
+          parking: false,
+          serviced: false,
+          newlyBuilt: false,
+          extraFeatures: "",
           facilities: {
             bedrooms: 0,
-            parkings: 0,
             bathrooms: 0,
+            toilets: 0
           },
-          userEmail: user?.email, // Ensure userEmail is included in propertyDetails
+          price: 0,
+          discountPercentage: 0,
+          discountEndDate: null,
+          installment: "",
+          initialPayment: 0,
+          installmentPayment: 0,
+          installmentFrequency: "",
+          userEmail: user?.email
         });
         setOpened(false);
         setActiveStep(0);
@@ -84,29 +102,28 @@ const Facilities = ({
   });
 
   return (
-    <Box maw={"30%"} mx="auto" my={"sm"}>
+    <Box mx="auto" my={"sm"}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmit();
         }}
+        className="flex flex-col justify-center items-center [&>*]:w-[min(100%,500px)]"
       >
         <NumberInput
-          withAsterisk
           label="No of Bedrooms"
           min={0}
           {...form.getInputProps("bedrooms")}
         />
         <NumberInput
-          label="No of parkings"
-          min={0}
-          {...form.getInputProps("parkings")}
-        />
-        <NumberInput
-          withAsterisk
           label="No of bathrooms"
           min={0}
           {...form.getInputProps("bathrooms")}
+        />
+        <NumberInput
+          label="No of toilets"
+          min={0}
+          {...form.getInputProps("toilets")}
         />
 
         <Group position="center" mt="xl">

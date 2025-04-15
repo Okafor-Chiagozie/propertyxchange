@@ -4,16 +4,16 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { userRoute } from "./routes/userRoute.js";
 import { residencyRoute } from "./routes/residencyRoute.js";
-import prisma from './config/prismaConfig.js';
 
-dotenv.config();
+dotenv.config();  
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const frontend_url = process.env.FRONTEND_URL || "https://propertyxchange.vercel.app";
 
 // CORS Configuration
 const corsOptions = {
-  origin: "https://propertyxchange.vercel.app", // Frontend URL
+  origin: frontend_url, // Frontend URL
   credentials: true, // Allows sending cookies/auth headers
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
@@ -31,27 +31,11 @@ app.use(cookieParser());
 app.use("/api/user", userRoute);
 app.use("/api/residency", residencyRoute);
 
-// Test API Route
-app.get("/api", async (req, res) => {
-  console.log("API endpoint hit");
-
-  try {
-    const residencies = await prisma.residency.findMany({
-      orderBy: { createdAt: "desc" },
-      take: 20, // Fetch only 20 records to optimize performance
-    });
-
-    res.json(residencies);
-  } catch (error) {
-    console.error("Error fetching residencies:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
+// Start the Server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
-// Root Route (For Debugging)
-app.get("/", (req, res) => {
-  res.json({ message: "CORS is working" });
-});
 
 // Export Express App for Vercel
-export default app;
+// export default app;
